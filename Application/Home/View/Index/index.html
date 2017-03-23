@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body>
+<!-- {:time()} -->
+控制器:<input type="text" name ='val1' id='val1'> |
+方法:<input type="text" name ='val2' id='val2'><br>
+<hr>
+<button classs="btn" data-url="1">测试线上11</button>
+<button classs="btn" data-url="2">测试本地11</button>
+<p class="content"></p>
+</body>
+<script>
+    $("button").click(function(){
+        var debug    = $(this).attr('data-url');
+        var data_arr = {
+        'cust_tel': 13971777435,
+        // 'verify_code':527685,
+        'passwd':123456,
+        // 'action':'text',
+        // 'job':"[\"监制\",\"导演\",\"纸片\"]",
+        // "job":["监制","导演","编剧"],
+        
+    
+ /**
+  * =====================================================================================================
+  * |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |        
+  * =====================================================================================================
+  */        
+      
+        };
+
+        var link_url = '';
+        var api_url  = '121.43.121.42';
+        var local    = '127.0.0.1';
+        var val1 = $("#val1").val();
+        var val2 = $("#val2").val();
+        if(val1 == ""){
+            // Controller;--------------------控制器
+            
+            val1 = "Search";
+
+            // Controller;--------------------
+        }
+        if(val2 == ""){
+            // Action;------------------------方法
+            
+            val2 = 'cust_detail';
+
+            // Action;------------------------
+        }
+        var control  = val1;
+        var action   = val2;
+        // 线上地址
+        var url      = 'http://' + api_url + '/MRules/index.php/Home/' + control + '/' + action;
+        // 线下地址
+        var dev_url  = 'http://' + local + '/MRules/index.php/Home/' + control + '/' + action ;
+
+        if(debug == 1){
+            link_url = url;
+        }else{
+            link_url = dev_url;
+        }
+
+        $.post(link_url,data_arr,function(ret){
+            if(ret == ''){
+                $('content').html('返回结果为空');
+            }else{
+                console.log(ret);
+                $('.content').html(ret);
+                $('.content').append(link_url+ret);
+            }
+        });
+        return false;
+    })
+
+</script>
+
+</html>
+
